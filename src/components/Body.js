@@ -13,10 +13,6 @@ const Body = () => {
             path: "/browse",
             element: <Browse />
         },
-        {
-          path: "/signup",
-          element: <Signup />
-        },
 
     ]);
 
