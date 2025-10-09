@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Header from './Header'
-import { Link } from 'react-router-dom'
+import { checkValidateData } from '../utils/validate'
 
 
 const Login = () => {
   const[isSignUp, SetIsSignUp] = useState(false);
 
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const[errorMessage, SetErrorMessage] = useState(null);
+
   const toggleSignUp = () => {
     SetIsSignUp(!isSignUp);
+  }
+  const handleButtonClick = () => {
+    // console.log(email, password);
+    const message = checkValidateData(email.current.value, password.current.value);
+    SetErrorMessage(message);
   }
 
   return (
@@ -20,14 +30,38 @@ const Login = () => {
           alt="bg"
         />
       </div>
-      <form className='w-3/12 absolute p-10 bg-black/70 my-36 mx-auto right-0 left-0 text-white'>
+
+      <form 
+          className='w-3/12 absolute p-10 bg-black/70 my-36 mx-auto right-0 left-0 text-white'
+          onSubmit={(e) => e.preventDefault()}
+      >
+          <button onClick={handleButtonClick}>{isSignUp ? "Sign Up" : "Sign In"}</button>
         <h1 className='text-white text-4xl font-bold my-2 p-2  w-full'>{isSignUp ? "Sign Up" : "Sign In"}</h1>
-        <input type="email" placeholder='Email address' className='my-2 p-2  w-full bg-gray-700 rounded-md'/>
+        <input 
+          type="email"
+          ref={email}
+          placeholder='Email address' 
+          className='my-2 p-2  w-full bg-gray-700 rounded-md'
+        />
+
         {isSignUp && <input type="text" placeholder='Full Name' className='my-2 p-2  w-full bg-gray-700 rounded-md'/>}
-        <input type="password" placeholder='Password' className='my-2 p-2  w-full bg-gray-700 rounded-md'/>
-        <button className='my-2 p-2  w-full bg-red-700 rounded-md'>Login</button>
-        <p className='my-2 p-2 w-full cursor-pointer ' onClick={toggleSignUp}>
-          {isSignUp ? "Already have an account? Sign in now."  : "New to Netflix? Sign up now."}
+        <input 
+          type="password" 
+          ref={password}
+          placeholder='Password' 
+          className='my-2 p-2  w-full bg-gray-700 rounded-md'
+        />
+        <p className='text-red-500 font-bold py-2 text-sm'>{errorMessage}</p>
+
+        <button 
+          className='my-2 p-2  w-full bg-red-700 rounded-md'
+          onClick={handleButtonClick}
+          
+        >Login</button>
+
+        <p 
+          className='my-2 p-2 w-full cursor-pointer ' 
+          onClick={toggleSignUp}>{isSignUp ? "Already have an account? Sign in now."  : "New to Netflix? Sign up now."}
         </p>
       </form>
   </div>
