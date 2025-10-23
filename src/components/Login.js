@@ -1,19 +1,22 @@
 import React, { useState, useRef } from 'react'
 import Header from './Header'
 import { checkValidateData } from '../utils/validate'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from '../utils/firebase'; 
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { BG_IMG_URL, USER_IMG_URL } from '../utils/constants';
 
 const Login = () => {
   const[isSignUp, SetIsSignUp] = useState(false);
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const[errorMessage, SetErrorMessage] = useState(null);
 
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const toggleSignUp = () => {
     SetIsSignUp(!isSignUp);
@@ -33,10 +36,22 @@ const Login = () => {
         password.current.value
       )
       .then((userCredential) => {
-        // Signed up 
-        const user = userCredential.user;        
-        // console.log(user);
-        navigate('/browse')
+        const user = userCredential.user;  
+        updateProfile(auth.currentUser, {
+          displayName: name.current.value, photoURL: USER_IMG_URL
+        }).then(() => {
+          const {uid, email, displayName, photoURL} = auth.currentUser;
+          dispatch(
+            addUser({
+              uid: uid,
+              email: email,
+              displayName: displayName,
+              photoURL: photoURL,
+            })
+          );
+        }).catch((error) => {
+          SetErrorMessage(`${error.code} - ${error.message}`);
+        });      
 
       })
       .catch((error) => {
@@ -57,7 +72,6 @@ const Login = () => {
           // Signed in 
           const user = userCredential.user;
           // console.log(user);
-          navigate('/browse')
       
         })
         .catch((error) => {
@@ -74,7 +88,7 @@ const Login = () => {
       <div className='absolute'>
         <img
           className=""
-          src={"https://assets.nflxext.com/ffe/siteui/vlv3/25f808aa-cecb-4753-8541-9a79f40c18ae/web/IN-en-20251006-TRIFECTA-perspective_507f47be-8780-4697-92cb-0f6c78177b6e_medium.jpg"}
+          src={BG_IMG_URL}
           alt="bg"
         />
       </div>
@@ -83,7 +97,6 @@ const Login = () => {
           className='w-3/12 absolute p-10 bg-black/70 my-36 mx-auto right-0 left-0 text-white'
           onSubmit={(e) => e.preventDefault()}
       >
-        <button onClick={handleButtonClick}>{isSignUp ? "Sign Up" : "Sign In"}</button>
         <h1 className='text-white text-4xl font-bold my-2 p-2  w-full'>{isSignUp ? "Sign Up" : "Sign In"}</h1>
         <input 
           type="email"
@@ -93,7 +106,14 @@ const Login = () => {
           className='my-2 p-2  w-full bg-gray-700 rounded-md'
         />
 
-        {isSignUp && <input type="text" placeholder='Full Name' className='my-2 p-2  w-full bg-gray-700 rounded-md'/>}
+        {isSignUp && <input 
+                      type="text" 
+                      placeholder='Full Name' 
+                      ref={name} 
+                      className='my-2 p-2  w-full bg-gray-700 rounded-md'
+                      autoComplete="name"
+                      required
+                    />}
         <input 
           type="password" 
           ref={password}
