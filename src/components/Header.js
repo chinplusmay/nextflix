@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
-import { LOGO_IMG_URL } from '../utils/constants';
+import { LOGO_IMG_URL, USER_IMG_URL } from '../utils/constants';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -47,11 +47,11 @@ const Header = () => {
         />
        {user && <div className='flex items-center'>
           <img
-            className="w-12"
-            src={user?.photoURL}
+            className="w-12 rounded-full"
+            src={USER_IMG_URL ||user?.photoURL}
             alt="avatar"
           />
-          <button className='p-2 ml-2' onClick={handleSignOut}>Sign Out</button>
+          <button className='p-2 ml-2 text-white bg-red-700 rounded-md' onClick={handleSignOut}>Sign Out</button>
         </div>}
     </div>
   )
