@@ -9,4 +9,30 @@ export const API_OPTIONS = {
       accept: 'application/json',
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGYyNmIwOTNjYWQzMDc2OGIxOWQzZTFmY2I5MTBmNiIsIm5iZiI6MTc2MTI4MTk0NC4wNjA5OTk5LCJzdWIiOiI2OGZiMDc5ODc0MWQzZWMxNjM1ZGRiZDciLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.SoUbxfCox9AwD0baB6La_EoIKVDpJXpaA7m1eirNG7E'
     }
-}; 
+};
+
+export const MOVIE_POSTER_CDN = "https://image.tmdb.org/t/p/w500/"
+
+export const SUPPORTED_LANGUAGES = [
+  {
+    identifier: "en",
+    name: "English",
+
+  },
+  {
+    identifier: "hn",
+    name: "Hindi",
+  },
+  {
+    identifier: "sp",
+    name: "Spanish",
+  },
+  {
+    identifier: "fr",
+    name: "French",
+  },
+  {
+    identifier: "gm",
+    name: "German",
+  },
+]
