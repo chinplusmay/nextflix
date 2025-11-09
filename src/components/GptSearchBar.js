@@ -37,10 +37,10 @@ const GptSearchBar = () => {
         //console.log(gptResults?.choices?.[0]?.message?.content.split(',')) -> {movie1, mov2, mov3, mov4, mov5}
         const moviesArray = gptResults?.choices?.[0]?.message?.content.split(',') 
         
-        const promisArray =  moviesArray.map((movie) => searchMovieTMDB(movie)) //[promise1, promise2, promise3, promise4, promise5]
+        const promiseArray =  moviesArray.map((movie) => searchMovieTMDB(movie)) //[promise1, promise2, promise3, promise4, promise5]
         
 
-        const tmdbResults = await Promise.all(promisArray) //[result1, result2, result3, result4, result5]
+        const tmdbResults = await Promise.all(promiseArray) //[result1, result2, result3, result4, result5]
         dispatch(addGptMoviesResult({movieResults:tmdbResults, movieNames:moviesArray}))
         console.log(tmdbResults)
     };
