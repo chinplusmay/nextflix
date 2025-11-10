@@ -1,70 +1,248 @@
-# Getting Started with Create React App
+# 🎬 Nextflix
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern Netflix clone built with React, featuring AI-powered movie recommendations using OpenAI's GPT API and real-time movie data from TMDB.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+### 🎥 Core Features
+- **Browse Movies**: Discover movies across multiple categories
+  - Now Playing
+  - Popular
+  - Top Rated
+  - Upcoming
+- **Movie Trailers**: Watch official movie trailers directly on the platform
+- **Responsive Design**: Optimized for all screen sizes with Tailwind CSS
+
+### 🤖 AI-Powered Search
+- **GPT Integration**: Intelligent movie search powered by OpenAI
+- **Smart Recommendations**: Get personalized movie suggestions based on natural language queries
+- **Multi-language Support**: Search in multiple languages (English, Hindi, Spanish, French, German)
+
+### 🔐 Authentication
+- **Firebase Authentication**: Secure user login and registration
+- **Protected Routes**: Authenticated user experience
+- **User Profiles**: Personalized user avatars
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 19.2.0
+- **State Management**: Redux Toolkit
+- **Styling**: Tailwind CSS
+- **Routing**: React Router DOM
+- **Authentication**: Firebase
+- **AI Integration**: OpenAI API
+- **Movie Data**: TMDB API
+- **Hosting**: Firebase Hosting
+- **Icons**: React Icons
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have:
+- Node.js (v14 or higher)
+- npm or yarn
+- Firebase account
+- TMDB API key
+- OpenAI API key
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/chinplusmay/nextflix
+cd nextflix
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Environment Setup
+
+Create a `.env` file in the root directory and add your API keys:
+
+```env
+REACT_APP_TMDB_API_KEY=your_tmdb_api_key
+REACT_APP_OPENAI_API_KEY=your_openai_api_key
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+```
+
+**API Keys Setup:**
+
+- **TMDB API**: Get your key from [TMDB](https://www.themoviedb.org/settings/api)
+- **OpenAI API**: Get your key from [OpenAI Platform](https://platform.openai.com/api-keys)
+- **Firebase**: Create a project at [Firebase Console](https://console.firebase.google.com/)
+
+### 4. Run the application
+
+```bash
+npm start
+```
+
+The app will run at [http://localhost:3000](http://localhost:3000)
+
+## 📁 Project Structure
+
+```
+nextflix/
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── Body.js
+│   │   ├── Browse.js
+│   │   ├── GptSearch.js
+│   │   ├── GptSearchBar.js
+│   │   ├── GptMoviesSuggestions.js
+│   │   ├── Header.js
+│   │   ├── Login.js
+│   │   ├── MainContainer.js
+│   │   ├── SecondaryContainer.js
+│   │   ├── MovieCard.js
+│   │   ├── MovieList.js
+│   │   ├── VideoBackground.js
+│   │   └── VideoTitle.js
+│   ├── hooks/
+│   │   ├── useMovieTrailer.js
+│   │   ├── useNowPlayingMovies.js
+│   │   ├── usePopularMovies.js
+│   │   ├── useTopRatedMovies.js
+│   │   └── useUpcomingMovies.js
+│   ├── utils/
+│   │   ├── appStore.js
+│   │   ├── configSlice.js
+│   │   ├── constants.js
+│   │   ├── firebase.js
+│   │   ├── gptSlice.js
+│   │   ├── languageConstants.js
+│   │   ├── movieSlice.js
+│   │   ├── openai.js
+│   │   ├── userSlice.js
+│   │   └── validate.js
+│   ├── App.js
+│   └── index.js
+├── tailwind.config.js
+├── firebase.json
+└── package.json
+```
+
+## 🎯 Available Scripts
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000)
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder
 
 ### `npm run eject`
+**Note: This is a one-way operation!** Ejects from Create React App
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🔑 Key Features Explained
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### GPT Movie Search
+The GPT-powered search allows users to ask for movie recommendations in natural language. For example:
+- "Show me some action movies with car chases"
+- "Romantic comedies from the 2000s"
+- "Movies similar to Inception"
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The system uses OpenAI's GPT to understand the query and returns relevant movie suggestions.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Custom Hooks
+- `useNowPlayingMovies`: Fetches currently playing movies
+- `usePopularMovies`: Fetches popular movies
+- `useTopRatedMovies`: Fetches top-rated movies
+- `useUpcomingMovies`: Fetches upcoming releases
+- `useMovieTrailer`: Fetches movie trailers from YouTube
 
-## Learn More
+### State Management
+Redux Toolkit is used for efficient state management with slices for:
+- User authentication state
+- Movie data
+- GPT search results
+- UI configuration
+- Language preferences
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🌐 Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Deploy to Firebase Hosting
 
-### Code Splitting
+1. Install Firebase CLI:
+```bash
+npm install -g firebase-tools
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Login to Firebase:
+```bash
+firebase login
+```
 
-### Analyzing the Bundle Size
+3. Initialize Firebase:
+```bash
+firebase init
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. Build and deploy:
+```bash
+npm run build
+firebase deploy
+```
 
-### Making a Progressive Web App
+## 🎨 Styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The project uses Tailwind CSS for styling with custom configurations. Key features:
+- Responsive design
+- Custom color schemes
+- Hover effects and transitions
+- Optimized for performance
 
-### Advanced Configuration
+## 🧪 Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The project includes testing setup with:
+- Jest
+- React Testing Library
+- User Event Testing
 
-### Deployment
+Run tests with:
+```bash
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🤝 Contributing
 
-### `npm run build` fails to minify
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 👤 Author
+
+Your Name - [Your GitHub](https://github.com/yourusername)
+
+## 🙏 Acknowledgments
+
+- [TMDB](https://www.themoviedb.org/) for movie data API
+- [OpenAI](https://openai.com/) for GPT integration
+- [Firebase](https://firebase.google.com/) for authentication and hosting
+- [Netflix](https://netflix.com/) for design inspiration
+
+## 📧 Contact
+
+For any questions or suggestions, feel free to reach out!
+
+---
+
+**Note**: This is a learning project and is not affiliated with Netflix, Inc.
